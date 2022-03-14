@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Criteria extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function crips()
+    {
+        return $this->hasMany(Crip::class);
+    }
 }

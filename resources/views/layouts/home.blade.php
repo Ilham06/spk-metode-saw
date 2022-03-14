@@ -51,7 +51,7 @@
           <div class="navbar navbar-light">
             <div class="container-xl">
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item active">
                   <a class="nav-link" href="./index.html" >
                     <i class="fas fa-home me-2"></i>
                     <span class="nav-link-title">
@@ -59,7 +59,7 @@
                     </span>
                   </a>
                 </li>
-                <li class="nav-item active dropdown">
+                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" > 
                     <i class="fas fa-chart-bar me-2"></i>
                     <span class="nav-link-title">
@@ -69,10 +69,10 @@
                   <div class="dropdown-menu">
                     <div class="dropdown-menu-columns">
                       <div class="dropdown-menu-column">
-                        <a class="dropdown-item" href="./empty.html" >
+                        <a class="dropdown-item" href="{{ route('criteria.index') }}" >
                           Data Kriteria <span class="badge bg-info ms-2">5</span>
                         </a>
-                        <a class="dropdown-item" href="./accordion.html" >
+                        <a class="dropdown-item" href="{{ route('crips.index') }}" >
                           Data Crips <span class="badge bg-info ms-2">5</span>
                         </a>
                       </div>
@@ -87,7 +87,7 @@
                     </span>
                   </a>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" href="./activity.html" >
+                    <a class="dropdown-item" href="{{ route('alternative.index') }}" >
                       Data Alternatif
                     </a>
                   </div>
@@ -129,110 +129,11 @@
         <div class="container-xl">
           <!-- Page title -->
           <div class="page-header d-print-none">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="page-title mb-2">
-                  Tables
-                </h2>
-                <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Library</li>
-                  </ol>
-                </nav>
-              </div>
-            </div>
+            @yield('header')
           </div>
         </div>
         <div class="page-body">
-          <div class="container-xl">
-            <div class="row row-cards">
-              <div class="col-12">
-                <div class="card">
-                  <div class="table-responsive">
-                    <table class="table table-vcenter card-table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Title</th>
-                          <th>Email</th>
-                          <th>Role</th>
-                          <th class="w-1"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td >Paweł Kuna</td>
-                          <td class="text-muted" >
-                            UI Designer, Training
-                          </td>
-                          <td class="text-muted" ><a href="#" class="text-reset">paweluna@howstuffworks.com</a></td>
-                          <td class="text-muted" >
-                            User
-                          </td>
-                          <td>
-                            <a href="#">Edit</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td >Jeffie Lewzey</td>
-                          <td class="text-muted" >
-                            Chemical Engineer, Support
-                          </td>
-                          <td class="text-muted" ><a href="#" class="text-reset">jlewzey1@seesaa.net</a></td>
-                          <td class="text-muted" >
-                            Admin
-                          </td>
-                          <td>
-                            <a href="#">Edit</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td >Mallory Hulme</td>
-                          <td class="text-muted" >
-                            Geologist IV, Support
-                          </td>
-                          <td class="text-muted" ><a href="#" class="text-reset">mhulme2@domainmarket.com</a></td>
-                          <td class="text-muted" >
-                            User
-                          </td>
-                          <td>
-                            <a href="#">Edit</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td >Dunn Slane</td>
-                          <td class="text-muted" >
-                            Research Nurse, Sales
-                          </td>
-                          <td class="text-muted" ><a href="#" class="text-reset">dslane3@epa.gov</a></td>
-                          <td class="text-muted" >
-                            Owner
-                          </td>
-                          <td>
-                            <a href="#">Edit</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td >Emmy Levet</td>
-                          <td class="text-muted" >
-                            VP Product Management, Accounting
-                          </td>
-                          <td class="text-muted" ><a href="#" class="text-reset">elevet4@senate.gov</a></td>
-                          <td class="text-muted" >
-                            Admin
-                          </td>
-                          <td>
-                            <a href="#">Edit</a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          @yield('content')
         </div>
         <footer class="footer footer-transparent d-print-none">
           <div class="container-xl">
@@ -271,8 +172,10 @@
       </div>
     </div>
     <!-- Libs JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tabler Core -->
     <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
     <script src="{{ asset('assets/js/demo.min.js') }}"></script>
+    @yield('script')
   </body>
 </html>
