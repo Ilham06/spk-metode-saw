@@ -15,6 +15,10 @@ class CreateAlternativeCriteriaTable extends Migration
     {
         Schema::create('alternative_criteria', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('alternative_id')->constrained('alternatives')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('value');
+            $table->float('normalize')->nullable();
             $table->timestamps();
         });
     }
