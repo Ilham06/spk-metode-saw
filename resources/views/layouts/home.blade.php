@@ -102,7 +102,7 @@
                   <div class="dropdown-menu">
                     <div class="dropdown-menu-columns">
                       <div class="dropdown-menu-column">
-                        <a class="dropdown-item" href="./layout-horizontal.html" >
+                        <a class="dropdown-item" href="{{ route('calculate.index') }}" >
                           Penentuan Nilai
                         </a>
                         <a class="dropdown-item" href="./layout-boxed.html" >

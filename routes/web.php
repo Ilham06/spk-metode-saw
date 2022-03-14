@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlternativeController;
+use App\Http\Controllers\CalculateController;
 use App\Http\Controllers\CripController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\HomeController;
@@ -34,3 +35,8 @@ Route::post('/crips/{id}', [CripController::class, 'store'])->name('crips.store'
 Route::delete('/crips/{id}', [CripController::class, 'destroy'])->name('crips.destroy');
 Route::put('/crips/{id}', [CripController::class, 'update'])->name('crips.update');
 Route::get('/crips/{id}/edit', [CripController::class, 'edit'])->name('crips.edit');
+
+Route::get('/calculating', [CalculateController::class, 'index'])->name('calculate.index');
+Route::get('/calculating/{id}/edit', [CalculateController::class, 'edit'])->name('calculate.edit');
+Route::put('/calculating/{id}', [CalculateController::class, 'update'])->name('calculate.update');
+Route::get('/calculating/result', [CalculateController::class, 'proses'])->name('calculate.proses');

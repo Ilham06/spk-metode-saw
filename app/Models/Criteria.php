@@ -15,4 +15,9 @@ class Criteria extends Model
     {
         return $this->hasMany(Crip::class);
     }
+
+    public function alternative()
+    {
+        return $this->belongsToMany(Alternative::class);
+    }
 }

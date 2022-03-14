@@ -10,4 +10,9 @@ class Alternative extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function criteria()
+    {
+        return $this->belongsToMany(Criteria::class)->withPivot(['criteria_id','value', 'normalize'])->withTimeStamps();
+    }
 }
