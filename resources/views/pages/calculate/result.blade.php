@@ -61,12 +61,12 @@
 					<h3>Data Nilai</h3>
 				</div>
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th>Nama Kriteria</th>
 									@foreach ($criterias as $c)
-										<th>{{ $c->code }}</th>
+										<th width="17%">{{ $c->code }}</th>
 									@endforeach
 							</tr>
 						</thead>
@@ -90,21 +90,21 @@
 					<h3>Data Normalisasi</h3>
 				</div>
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table table-bordered">
 						<thead>
 							<tr>
 								<th>Nama Kriteria</th>
 									@foreach ($criterias as $c)
-										<th>{{ $c->code }}</th>
+										<th width="17%">{{ $c->code }}</th>
 									@endforeach
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($alternatives as $alternative)
+							@foreach ($arrNormalize as $key => $value)
 							<tr>
-								<td>{{ $alternative->name }}</td>
-								@foreach ($alternative->criteria as $c)
-								<td>{{ $c->pivot->normalize }}</td>
+								<td>{{ $key }}</td>
+								@foreach ($value as $v)
+								<td>{{ $v }}</td>
 								@endforeach
 							</tr>
 							@endforeach
@@ -131,8 +131,8 @@
 							@foreach ($rank as $key => $value)
 							<tr>
 								<td>{{ $loop->iteration }}</td>
-								<td>{{ $value->alternative->name}}</td>
-								<td>{{ $value->total }}</td>
+								<td>{{ $key}}</td>
+								<td>{{ $value }}</td>
 							</tr>
 							@endforeach
 						</tbody>

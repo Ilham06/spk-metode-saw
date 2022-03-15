@@ -20,9 +20,16 @@ class CriteriaController extends Controller
     public function index()
     {
         $criterias = Criteria::all();
+        $total = 0;
+
+        foreach ($criterias as $key => $value) {
+            $total += $value->criteriaNormalize();
+        }
 
         return view('pages.criteria.index', [
-            'criterias' => $criterias
+            'criterias' => $criterias,
+            'total' => Criteria::sum('weight'),
+            'normalTotal' => $total
         ]);
     }
 

@@ -20,4 +20,11 @@ class Criteria extends Model
     {
         return $this->belongsToMany(Alternative::class);
     }
+
+    public function criteriaNormalize()
+    {
+        $data = Criteria::sum('weight');
+
+        return $this->weight/$data;
+    }
 }

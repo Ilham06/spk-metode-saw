@@ -37,6 +37,7 @@
 								<th>Nama</th>
 								<th>Attribut</th>
 								<th>Bobot</th>
+								<th>Normalisasi</th>
 								<th width="10%">Aksi</th>
 							</tr>
 						</thead>
@@ -47,6 +48,7 @@
 									<td>{{ $criteria->name }}</td>
 									<td>{{ $criteria->attribute }}</td>
 									<td>{{ $criteria->weight }}</td>
+									<td>{{ $criteria->criteriaNormalize() }}</td>
 									<td>
 										<a href="{{ route('criteria.edit', $criteria->id) }}" class="btn btn-primary btn-icon btn-sm"><i class="fas fa-edit"></i></a>
 										<form method="post" action="{{ route('criteria.destroy', $criteria->id) }}" class="d-inline">
@@ -61,6 +63,12 @@
 									<td colspan="5" class="text-center">Data Kosong</td>
 								</tr>
 							@endforelse
+							<tr>
+								<th colspan="3">Jumlah</th>
+								<td>{{ $total }}</td>
+								<td>{{ $normalTotal }}</td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

@@ -75,6 +75,9 @@ class CalculateController extends Controller
         $alternatives = Alternative::all();
         $criterias = Criteria::all();
 
+        $arrNormalize = [];
+        $arrWeighting = [];
+        $i = 0;
         // cari data normalisasi dan update ke db
         foreach ($alternatives as $alternative) {
             foreach ($alternative->criteria as $data) {
@@ -83,53 +86,39 @@ class CalculateController extends Controller
                     // jika attributnya benefit, cari data max lalu nilai/max
                     $max = DB::table('alternative_criteria')->where('criteria_id', $data->id)->max('value');
                     $normalize = $data->pivot->value/$max;
+                    $arrNormalize[$alternative->name][$i] = round($normalize, 4);
+
                     $bobot = $normalize * ($criteria->weight / $criteria->sum('weight'));
-                    $alternative->criteria()->updateExistingPivot($data->id, [
-                        'normalize' => $normalize,
-                        'weighting' => $bobot
-                    ]);
+                    $arrWeighting[$alternative->name][$i] = round($bobot, 4);
                 } else {
                     // jika attributnya cost, cari data min lalu min/value
                     $min = DB::table('alternative_criteria')->where('criteria_id', $data->id)->min('value');
                     $normalize = $min/$data->pivot->value;
+                    $arrNormalize[$alternative->name][$i] = round($normalize, 4);
+
                     $bobot = $normalize * ($criteria->weight / $criteria->sum('weight'));
-                    $alternative->criteria()->updateExistingPivot($data->id, [
-                        'normalize' => $normalize,
-                        'weighting' => $bobot
-                    ]);
+                    $arrWeighting[$alternative->name][$i] = round($bobot, 4);
                 }
 
-                // $criteria = Criteria::find($data->id);
-                // $bobot = $data->pivot->normalize * ($criteria->weight / $criteria->sum('weight'));
-                // $alternative->criteria()->updateExistingPivot($data->id, [
-                //         'weighting' => $bobot
-                //     ]);
+                $i++;
             }
-
-            // $sum = DB::table('alternative_criteria')->where('alternative_id', $alternative->id)->sum('weighting');
-
-            // if ($alternative->rank()->where('alternative_id', $alternative->id)->exists()) {
-            //     $rank = Rank::where('alternative_id', $alternative->id)->first();
-            //     $rank->total = $sum;
-            //     $rank->save();
-            // } else {
-            //     Rank::updateOrCreate([
-            //         'alternative_id' => $alternative->id,
-            //         'total' => $sum
-            //     ]);
-            // }
-
             
         }
 
-        $rank = Rank::orderBy('total', 'desc')->get();
+        // dd($arrNormalize);
 
-        $alt = Alternative::orderBy('created_at', 'asc')->get();
+        $rank = [];
+
+        foreach ($arrWeighting as $key => $value) {
+           $data = array_sum($arrWeighting[$key]);
+           $rank[$key] = $data; 
+        }
 
         return view('pages.calculate.result', [
-            'alternatives' => $alt,
+            'alternatives' => Alternative::all(),
             'criterias' => $criterias,
-            'rank' => $rank
+            'arrNormalize' => $arrNormalize,
+            'rank' => collect($rank)->sortDesc()
         ]);
         
         
