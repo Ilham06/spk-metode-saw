@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alternative;
 use App\Models\Criteria;
+use App\Models\Rank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -45,14 +46,19 @@ class CalculateController extends Controller
     {
         $alternative = Alternative::find($id);
         
-        foreach ($request->criteria as $key => $value) {
+        foreach ($request->criteria as $key => $criteria) {
+            $data = explode('?', $criteria);
+            $value = (int) $data[0];
+            $crip = $data[1];
             if ($alternative->criteria()->where('criteria_id', $key)->exists()) {
                 $alternative->criteria()->updateExistingPivot($key, [
-                    'value' => $value
+                    'value' => $value,
+                    'crip' => $crip
                 ]);
             } else {
                 $alternative->criteria()->attach($key, [
-                    'value' => $value
+                    'value' => $value,
+                    'crip' => $crip
                 ]); 
             }  
         }
@@ -72,57 +78,56 @@ class CalculateController extends Controller
         // cari data normalisasi dan update ke db
         foreach ($alternatives as $alternative) {
             foreach ($alternative->criteria as $data) {
+                $criteria = Criteria::find($data->id);
                 if ($data->attribute == 'benefit') {
                     // jika attributnya benefit, cari data max lalu nilai/max
                     $max = DB::table('alternative_criteria')->where('criteria_id', $data->id)->max('value');
                     $normalize = $data->pivot->value/$max;
+                    $bobot = $normalize * ($criteria->weight / $criteria->sum('weight'));
                     $alternative->criteria()->updateExistingPivot($data->id, [
-                        'normalize' => $normalize
+                        'normalize' => $normalize,
+                        'weighting' => $bobot
                     ]);
                 } else {
-                    // jika attributnya cost, cari dara min lalu min/value
+                    // jika attributnya cost, cari data min lalu min/value
                     $min = DB::table('alternative_criteria')->where('criteria_id', $data->id)->min('value');
                     $normalize = $min/$data->pivot->value;
+                    $bobot = $normalize * ($criteria->weight / $criteria->sum('weight'));
                     $alternative->criteria()->updateExistingPivot($data->id, [
-                        'normalize' => $normalize
+                        'normalize' => $normalize,
+                        'weighting' => $bobot
                     ]);
                 }
+
+                // $criteria = Criteria::find($data->id);
+                // $bobot = $data->pivot->normalize * ($criteria->weight / $criteria->sum('weight'));
+                // $alternative->criteria()->updateExistingPivot($data->id, [
+                //         'weighting' => $bobot
+                //     ]);
             }
+
+            // $sum = DB::table('alternative_criteria')->where('alternative_id', $alternative->id)->sum('weighting');
+
+            // if ($alternative->rank()->where('alternative_id', $alternative->id)->exists()) {
+            //     $rank = Rank::where('alternative_id', $alternative->id)->first();
+            //     $rank->total = $sum;
+            //     $rank->save();
+            // } else {
+            //     Rank::updateOrCreate([
+            //         'alternative_id' => $alternative->id,
+            //         'total' => $sum
+            //     ]);
+            // }
+
+            
         }
 
-        // tahap pembobotan
-        // untuk membantu saat menentukan ranking, kita ubah dulu nilai yang sudah di normalisasi tadi.
-        $arr = [];
-        $i = 0;
-        foreach ($alternatives as $alternative) {
-            foreach ($alternative->criteria as $data) {
-                $criteria = Criteria::find($data->id);
+        $rank = Rank::orderBy('total', 'desc')->get();
 
-                // data normalisasi * bentuk normalisasi dari bobot kriteria
-                // rumus cari bentuk normal dari keriteria adalah bobot kriteria / sigma bobot kriteria.
-                $bobot = $data->pivot->normalize * ($criteria->weight / $criteria->sum('weight'));
-
-                $arr[$alternative->name][$i] = $bobot;
-
-                $i++;
-            }
-        }
-
-        // tahap perangkingan
-        // setelah mendapat nilai bobotnya, makaa kita jumlahkan bobot tiap alternatif
-        $rank = [];
-
-        foreach ($arr as $key => $value) {
-           $data = array_sum($arr[$key]);
-           $rank[$key] = $data; 
-        }
-
-        // kita urutkan dari yang terbesar ygy
-        $rank = collect($rank)->sortDesc();
-
+        $alt = Alternative::orderBy('created_at', 'asc')->get();
 
         return view('pages.calculate.result', [
-            'alternatives' => $alternatives,
+            'alternatives' => $alt,
             'criterias' => $criterias,
             'rank' => $rank
         ]);

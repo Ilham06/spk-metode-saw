@@ -26,7 +26,7 @@
 			{{ session('success') }}
 		</div>
 		@endif
-		@foreach ($criterias as $criteria)
+		@forelse ($criterias as $criteria)
 			<div class="col-lg-6">
 				<div class="card">
 					<div class="card-header d-flex justify-content-between">
@@ -68,7 +68,11 @@
 					</div>
 				</div>
 			</div>
-		@endforeach
+		@empty
+		<div class="alert alert-danger">
+			Belum Ada Kriteria
+		</div>
+		@endforelse
 	</div>
 </div>
 @endsection

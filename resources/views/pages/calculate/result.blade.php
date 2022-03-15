@@ -29,6 +29,35 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-header">
+					<h3>Data Awal</h3>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nama Kriteria</th>
+									@foreach ($criterias as $c)
+										<th>{{ $c->code }}</th>
+									@endforeach
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($alternatives as $alternative)
+							<tr>
+								<td>{{ $alternative->name }}</td>
+								@foreach ($alternative->criteria as $c)
+								<td>{{ $c->pivot->crip }}</td>
+								@endforeach
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
 					<h3>Data Nilai</h3>
 				</div>
 				<div class="table-responsive">
@@ -102,8 +131,8 @@
 							@foreach ($rank as $key => $value)
 							<tr>
 								<td>{{ $loop->iteration }}</td>
-								<td>{{ $key }}</td>
-								<td>{{ $value }}</td>
+								<td>{{ $value->alternative->name}}</td>
+								<td>{{ $value->total }}</td>
 							</tr>
 							@endforeach
 						</tbody>

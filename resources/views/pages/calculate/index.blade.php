@@ -48,7 +48,7 @@
 									<td><a href="{{ route('calculate.edit', $alternative->id) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"></i></a></td>
 									<td>{{ $alternative->name }}</td>
 									@foreach ($alternative->criteria as $c)
-										<td>{{ $c->pivot->value }}</td>
+										<td>{{ $c->pivot->crip }}</td>
 									@endforeach
 								</tr>
 							@endforeach
