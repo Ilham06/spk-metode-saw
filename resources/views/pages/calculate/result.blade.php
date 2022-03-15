@@ -28,16 +28,85 @@
 		@endif
 		<div class="col-12">
 			<div class="card">
+				<div class="card-header">
+					<h3>Data Nilai</h3>
+				</div>
 				<div class="table-responsive">
 					<table class="table">
-						@foreach ($alternatives as $alternative)
-						<tr>
-							<td>{{ $alternative->name }}</td>
-							@foreach ($alternative->criteria as $c)
-								<td>{{ $c->pivot->normalize }}</td>
+						<thead>
+							<tr>
+								<th>Nama Kriteria</th>
+									@foreach ($criterias as $c)
+										<th>{{ $c->code }}</th>
+									@endforeach
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($alternatives as $alternative)
+							<tr>
+								<td>{{ $alternative->name }}</td>
+								@foreach ($alternative->criteria as $c)
+								<td>{{ $c->pivot->value }}</td>
+								@endforeach
+							</tr>
 							@endforeach
-						</tr>
-						@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="card">
+				<div class="card-header">
+					<h3>Data Normalisasi</h3>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nama Kriteria</th>
+									@foreach ($criterias as $c)
+										<th>{{ $c->code }}</th>
+									@endforeach
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($alternatives as $alternative)
+							<tr>
+								<td>{{ $alternative->name }}</td>
+								@foreach ($alternative->criteria as $c)
+								<td>{{ $c->pivot->normalize }}</td>
+								@endforeach
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-6">
+			<div class="card">
+				<div class="card-header">
+					<h3>Perangkingan</h3>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Rank</th>
+								<th>Nama</th>
+								<th>Nilai Akhir</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($rank as $key => $value)
+							<tr>
+								<td>{{ $loop->iteration }}</td>
+								<td>{{ $key }}</td>
+								<td>{{ $value }}</td>
+							</tr>
+							@endforeach
+						</tbody>
 					</table>
 				</div>
 			</div>
