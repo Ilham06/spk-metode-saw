@@ -40,7 +40,7 @@
 									<th>Kode</th>
 									<th>Crips</th>
 									<th>Nilai</th>
-									<th>Aksi</th>
+									<th width="18%">Aksi</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -51,7 +51,7 @@
 									<td>{{ $crips->value }}</td>
 									<td>
 										<a href="{{ route('crips.edit', $crips->id) }}" class="btn btn-primary btn-icon btn-sm"><i class="fas fa-edit"></i></a>
-										<form method="post" action="{{ route('crips.destroy', $crips->id) }}" class="d-inline">
+										<form onclick="return confirm('hapus data?')" method="post" action="{{ route('crips.destroy', $crips->id) }}" class="d-inline">
 											@method('delete')
 											@csrf
 											<button type="submit" class="btn btn-sm btn-danger btn-icon btn-inline"><i class="fas fa-trash"></i></button>

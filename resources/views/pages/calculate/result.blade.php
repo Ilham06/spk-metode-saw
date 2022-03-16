@@ -61,7 +61,7 @@
 					<h3>Data Nilai</h3>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered">
+					<table class="table">
 						<thead>
 							<tr>
 								<th>Nama Kriteria</th>
@@ -90,7 +90,7 @@
 					<h3>Data Normalisasi</h3>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered">
+					<table class="table">
 						<thead>
 							<tr>
 								<th>Nama Kriteria</th>

@@ -26,6 +26,7 @@
 			{{ session('success') }}
 		</div>
 		@endif
+
 		<div class="col-12">
 			<a href="{{ route('criteria.create') }}" class="btn btn-success mb-2">Tambah Data</a>
 			<div class="card">
@@ -51,7 +52,7 @@
 									<td>{{ $criteria->criteriaNormalize() }}</td>
 									<td>
 										<a href="{{ route('criteria.edit', $criteria->id) }}" class="btn btn-primary btn-icon btn-sm"><i class="fas fa-edit"></i></a>
-										<form method="post" action="{{ route('criteria.destroy', $criteria->id) }}" class="d-inline">
+										<form onclick="return confirm('hapus data?')" method="post" action="{{ route('criteria.destroy', $criteria->id) }}" class="d-inline">
 											@method('delete')
 											@csrf
 											<button type="submit" class="btn btn-sm btn-danger btn-icon btn-inline"><i class="fas fa-trash"></i></button>

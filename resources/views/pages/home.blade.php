@@ -22,86 +22,19 @@
 <div class="container-xl">
 	<div class="row row-cards">
 		<div class="col-12">
+			<div class="alert alert-primary">
+				Hallo {{ auth()->user()->name }}, Selamat dantang di MY SPK.
+			</div>
 			<div class="card">
-				<div class="table-responsive">
-					<table class="table table-vcenter card-table">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Title</th>
-								<th>Email</th>
-								<th>Role</th>
-								<th class="w-1"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td >Paweł Kuna</td>
-								<td class="text-muted" >
-									UI Designer, Training
-								</td>
-								<td class="text-muted" ><a href="#" class="text-reset">paweluna@howstuffworks.com</a></td>
-								<td class="text-muted" >
-									User
-								</td>
-								<td>
-									<a href="#">Edit</a>
-								</td>
-							</tr>
-							<tr>
-								<td >Jeffie Lewzey</td>
-								<td class="text-muted" >
-									Chemical Engineer, Support
-								</td>
-								<td class="text-muted" ><a href="#" class="text-reset">jlewzey1@seesaa.net</a></td>
-								<td class="text-muted" >
-									Admin
-								</td>
-								<td>
-									<a href="#">Edit</a>
-								</td>
-							</tr>
-							<tr>
-								<td >Mallory Hulme</td>
-								<td class="text-muted" >
-									Geologist IV, Support
-								</td>
-								<td class="text-muted" ><a href="#" class="text-reset">mhulme2@domainmarket.com</a></td>
-								<td class="text-muted" >
-									User
-								</td>
-								<td>
-									<a href="#">Edit</a>
-								</td>
-							</tr>
-							<tr>
-								<td >Dunn Slane</td>
-								<td class="text-muted" >
-									Research Nurse, Sales
-								</td>
-								<td class="text-muted" ><a href="#" class="text-reset">dslane3@epa.gov</a></td>
-								<td class="text-muted" >
-									Owner
-								</td>
-								<td>
-									<a href="#">Edit</a>
-								</td>
-							</tr>
-							<tr>
-								<td >Emmy Levet</td>
-								<td class="text-muted" >
-									VP Product Management, Accounting
-								</td>
-								<td class="text-muted" ><a href="#" class="text-reset">elevet4@senate.gov</a></td>
-								<td class="text-muted" >
-									Admin
-								</td>
-								<td>
-									<a href="#">Edit</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="card-body">
+					<h3 class="mb-4">Bagaimana Cara Kerja MY SPK?</h3>
+					<ul>
+						<li><p><strong><a href="{{ route('criteria.index') }}">Menentukan Kriteria.</a></strong> Data kriteria berisi kode, nama, atribut, bobot. Bobot kriteria menentukan seberapa penting kriteria tersebut. Setiap nilai bobot akan di normalisasi dengan cara bobot/total bobot. dan ketika di jumlahkan semua nilainya harus sama dengan 1. Atribut kriteria terdiri dari benefit atau cost, dimana benefit artinya semakin besar nilainya semakin bagus, sedangkan cost semakin kecil nilainya semakin bagus.</p></li>
+						<li><p><strong><a href="{{ route('crips.index') }}">Menentukan Crips.</a></strong> Crips adalah nilai dari suatu kriteria. Crips digunakan untuk memudahkan untuk memberikan nilai pada alternatif, dan data inilah yang akan diinputkan pada penentuan nilai. jadi, pastikan anda teleh mengisi data crips sebelum menentukan nilai alternatif. Data Crips berisi keterangan crips itu sendiri, dan bobotnya.</p></li>
+						<li><p><strong><a href="{{ route('alternative.index') }}">Menentukan Alternatif.</a></strong> Alternatif merupakan data yang akan dihitung nilainya dan dipilih sebagai alternatif terbaik. Data alternatif berisi kode, nama, dan keterangan(opsional).</p></li>
+						<li><p><strong><a href="{{ route('calculate.index') }}">Menentuan Nilai Alternatif.</a></strong> setelah menentukan 3 data diatas, maka sekarang saat untuk menentukan nilai alternatif berdasarkan data kriterianya. data yang akan di inputkan adalah data crips.</p></li>
+						<li><p><strong><a href="{{ route('calculate.index') }}">Proses.</a></strong> Proses ini dilakukan otomatis oleh sistem. proses yang dilakukan diantaranya adalah melakukan normalisasi nilai sebelumnya, sampai dengan tahap perangkingan.</p></li>
+					</ul>
 				</div>
 			</div>
 		</div>

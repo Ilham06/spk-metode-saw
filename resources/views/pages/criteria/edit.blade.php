@@ -61,8 +61,8 @@
 						<div class="mb-3">
 							<div class="form-label">Atribut <span class="text-danger">*</span></div>
 							<select class="form-select @error('attribute') is-invalid @enderror" name="attribute">
-								<option value="benefit">Benefit</option>
-								<option value="cost">Cost</option>
+								<option value="benefit" {{ ($criteria->attribute) == 'benefit' ? 'selected' : '' ; }}>Benefit</option>
+								<option value="cost" {{ ($criteria->attribute) == 'cost' ? 'selected' : '' ; }}>Cost</option>
 							</select>
 							@error('attribute')
 							<span class="invalid-feedback" role="alert">

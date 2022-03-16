@@ -47,7 +47,7 @@
 									<td>{{ $alternative->note }}</td>
 									<td>
 										<a href="{{ route('alternative.edit', $alternative->id) }}" class="btn btn-primary btn-icon btn-sm"><i class="fas fa-edit"></i></a>
-										<form method="post" action="{{ route('alternative.destroy', $alternative->id) }}" class="d-inline">
+										<form onclick="return confirm('hapus data?')" method="post" action="{{ route('alternative.destroy', $alternative->id) }}" class="d-inline">
 											@method('delete')
 											@csrf
 											<button type="submit" class="btn btn-sm btn-danger btn-icon btn-inline"><i class="fas fa-trash"></i></button>

@@ -12,7 +12,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <title>@yield('title')</title>
     <!-- CSS files -->
     <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet"/>
@@ -27,13 +27,13 @@
           </button>
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href=".">
-              My SPK
+              MY SPK
             </a>
           </h1>
           <div class="navbar-nav flex-row order-md-last">
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                <span class="avatar avatar-sm" style="background-image: url({{ asset('assets/avatar.png') }})"></span>
                 <div class="d-none d-xl-block ps-2">
                   <div>Ilham Muhamad</div>
                   <div class="mt-1 small text-muted">Admin</div>
@@ -51,15 +51,15 @@
           <div class="navbar navbar-light">
             <div class="container-xl">
               <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="./index.html" >
+                <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
+                  <a class="nav-link" href="{{ route('home') }}" >
                     <i class="fas fa-home me-2"></i>
                     <span class="nav-link-title">
                       Home
                     </span>
                   </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{ request()->is('criteria') || request()->is('crips') ? 'active' : '' }}">
                   <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" > 
                     <i class="fas fa-chart-bar me-2"></i>
                     <span class="nav-link-title">
@@ -70,16 +70,16 @@
                     <div class="dropdown-menu-columns">
                       <div class="dropdown-menu-column">
                         <a class="dropdown-item" href="{{ route('criteria.index') }}" >
-                          Data Kriteria <span class="badge bg-info ms-2">5</span>
+                          Data Kriteria
                         </a>
                         <a class="dropdown-item" href="{{ route('crips.index') }}" >
-                          Data Crips <span class="badge bg-info ms-2">5</span>
+                          Data Crips
                         </a>
                       </div>
                     </div>
                   </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{ request()->is('alternative') ? 'active' : '' }}">
                   <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                     <i class="fas fa-list-ol me-2"></i>
                     <span class="nav-link-title">
@@ -92,7 +92,7 @@
                     </a>
                   </div>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown {{ request()->is('calculating') || request()->is('calculating/result') ? 'active' : '' }}">
                   <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                     <i class="fas fa-calculator me-2"></i>
                     <span class="nav-link-title">
@@ -105,7 +105,7 @@
                         <a class="dropdown-item" href="{{ route('calculate.index') }}" >
                           Penentuan Nilai
                         </a>
-                        <a class="dropdown-item" href="./layout-boxed.html" >
+                        <a class="dropdown-item" href="{{ route('calculate.proses') }}" >
                           Hasil
                         </a>
                       </div>
