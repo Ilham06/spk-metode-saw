@@ -19,8 +19,6 @@ class CreateAlternativeCriteriaTable extends Migration
             $table->foreignId('criteria_id')->constrained('criterias')->onUpdate('cascade')->onDelete('cascade');
             $table->string('crip');
             $table->integer('value');
-            $table->double('normalize')->nullable();
-            $table->double('weighting')->nullable();
             $table->timestamps();
         });
     }

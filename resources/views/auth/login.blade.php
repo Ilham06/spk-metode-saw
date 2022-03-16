@@ -4,12 +4,12 @@
 <div class="page page-center">
     <div class="container-tight py-4">
         <div class="text-center mb-4">
-            <a href="." class="navbar-brand navbar-brand-autodark"><img src="./static/logo.svg" height="36" alt=""></a>
+            <h2>MY SPK</h2>
         </div>
         <form class="card card-md" action="{{ route('login') }}" method="post" autocomplete="off">
             @csrf
             <div class="card-body">
-                <h2 class="card-title text-center mb-4">Login to your account</h2>
+                <h2 class="card-title text-center mb-4">Login ke Akun Anda</h2>
                 <div class="mb-3">
                     <label class="form-label">Email address</label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" name="email">
@@ -32,14 +32,14 @@
                         @enderror
                     </div>
                 </div>
-                <div class="mb-2">
+                <div class="mb-2 mt-2">
                     <label class="form-check">
                         <input type="checkbox" class="form-check-input" />
                         <span class="form-check-label">Remember me on this device</span>
                     </label>
                 </div>
                 <div class="form-footer">
-                    <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                    <button type="submit" class="btn btn-primary w-100">Masuk</button>
                 </div>
             </div>
         </form>

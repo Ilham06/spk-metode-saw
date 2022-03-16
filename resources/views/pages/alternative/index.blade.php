@@ -44,7 +44,7 @@
 								<tr>
 									<td>{{ $alternative->code }}</td>
 									<td>{{ $alternative->name }}</td>
-									<td>{{ $alternative->note }}</td>
+									<td>{{ $alternative->note ? $alternative->note : '-' ; }}</td>
 									<td>
 										<a href="{{ route('alternative.edit', $alternative->id) }}" class="btn btn-primary btn-icon btn-sm"><i class="fas fa-edit"></i></a>
 										<form onclick="return confirm('hapus data?')" method="post" action="{{ route('alternative.destroy', $alternative->id) }}" class="d-inline">

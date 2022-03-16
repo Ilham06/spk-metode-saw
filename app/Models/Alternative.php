@@ -13,11 +13,6 @@ class Alternative extends Model
 
     public function criteria()
     {
-        return $this->belongsToMany(Criteria::class)->withPivot(['criteria_id','value', 'normalize','crip'])->withTimeStamps();
-    }
-
-    public function rank()
-    {
-        return $this->hasOne(Rank::class);
+        return $this->belongsToMany(Criteria::class)->withPivot(['criteria_id','value','crip'])->withTimeStamps();
     }
 }

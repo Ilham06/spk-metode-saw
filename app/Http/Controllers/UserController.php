@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alternative;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class AlternativeController extends Controller
+class UserController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -15,10 +15,10 @@ class AlternativeController extends Controller
      */
     public function index()
     {
-        $alternatives = Alternative::all();
+        $users = User::all();
 
-        return view('pages.alternative.index', [
-            'alternatives' => $alternatives
+        return view('pages.user.index', [
+            'users' => $users
         ]);
     }
 
@@ -29,7 +29,7 @@ class AlternativeController extends Controller
      */
     public function create()
     {
-        return view('pages.alternative.create');
+        return view('pages.user.create');
     }
 
     /**
@@ -40,15 +40,20 @@ class AlternativeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'code' => 'required|unique:alternatives,code',
-            'name' => 'required|unique:alternatives,name',
-            'note' => 'nullable',
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
         ]);
 
-        Alternative::create($data);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user'
+        ]);
 
-        return redirect()->route('alternative.index')->with('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('user.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -70,10 +75,7 @@ class AlternativeController extends Controller
      */
     public function edit($id)
     {
-        $alternative = Alternative::find($id);
-        return view('pages.alternative.edit', [
-            'alternative' => $alternative
-        ]);
+        //
     }
 
     /**
@@ -85,19 +87,7 @@ class AlternativeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|unique:alternatives,name,'.$id,
-            'code' => 'required|unique:alternatives,code,'.$id,
-            'note' => 'nullable',
-        ]);
-
-        $alternative = Alternative::find($id);
-        $alternative->code = $request->code;
-        $alternative->name = $request->name;
-        $alternative->note = $request->note;
-
-        $alternative->save();
-        return redirect()->route('alternative.index')->with('success', 'Data Berhasil Diubah');
+        //
     }
 
     /**
@@ -108,7 +98,7 @@ class AlternativeController extends Controller
      */
     public function destroy($id)
     {
-        Alternative::destroy($id);
-        return redirect()->route('alternative.index')->with('success', 'Data Berhasil Dihapus');
+        User::destroy($id);
+        return redirect()->route('user.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

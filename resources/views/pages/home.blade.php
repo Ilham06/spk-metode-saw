@@ -22,12 +22,17 @@
 <div class="container-xl">
 	<div class="row row-cards">
 		<div class="col-12">
+			@if (session('error'))
+			<div class="alert alert-danger">
+				{{ session('error') }}
+			</div>
+			@endif
 			<div class="alert alert-primary">
-				Hallo {{ auth()->user()->name }}, Selamat dantang di MY SPK.
+				Hallo {{ auth()->user()->name }}.. Selamat datang di MY SPK, Program Sistem Pendukung Keputusan dengan Metode Simple Additive Weight (SAW).
 			</div>
 			<div class="card">
 				<div class="card-body">
-					<h3 class="mb-4">Bagaimana Cara Kerja MY SPK?</h3>
+					<h3 class="mb-4">Bagaimana Cara Kerja Program SPK ini?</h3>
 					<ul>
 						<li><p><strong><a href="{{ route('criteria.index') }}">Menentukan Kriteria.</a></strong> Data kriteria berisi kode, nama, atribut, bobot. Bobot kriteria menentukan seberapa penting kriteria tersebut. Setiap nilai bobot akan di normalisasi dengan cara bobot/total bobot. dan ketika di jumlahkan semua nilainya harus sama dengan 1. Atribut kriteria terdiri dari benefit atau cost, dimana benefit artinya semakin besar nilainya semakin bagus, sedangkan cost semakin kecil nilainya semakin bagus.</p></li>
 						<li><p><strong><a href="{{ route('crips.index') }}">Menentukan Crips.</a></strong> Crips adalah nilai dari suatu kriteria. Crips digunakan untuk memudahkan untuk memberikan nilai pada alternatif, dan data inilah yang akan diinputkan pada penentuan nilai. jadi, pastikan anda teleh mengisi data crips sebelum menentukan nilai alternatif. Data Crips berisi keterangan crips itu sendiri, dan bobotnya.</p></li>

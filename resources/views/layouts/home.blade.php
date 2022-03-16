@@ -35,12 +35,15 @@
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                 <span class="avatar avatar-sm" style="background-image: url({{ asset('assets/avatar.png') }})"></span>
                 <div class="d-none d-xl-block ps-2">
-                  <div>Ilham Muhamad</div>
-                  <div class="mt-1 small text-muted">Admin</div>
+                  <div>{{ auth()->user()->name }}</div>
+                  <div class="mt-1 small text-muted">{{ auth()->user()->role }}</div>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" class="dropdown-item">Logout</a>
+                <form onclick="return confirm('ingin logout?')" action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <button type="submit" class="dropdown-item">Logout</button>
+                </form>
               </div>
             </div>
           </div>
@@ -113,7 +116,7 @@
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="./form-elements.html" >
+                  <a class="nav-link" href="{{ route('user.index') }}" >
                     <i class="fas fa-user me-2"></i>
                     <span class="nav-link-title">
                       User
@@ -135,34 +138,18 @@
         <div class="page-body">
           @yield('content')
         </div>
-        <footer class="footer footer-transparent d-print-none">
+        <footer class="footer d-print-none">
           <div class="container-xl">
             <div class="row text-center align-items-center flex-row-reverse">
               <div class="col-lg-auto ms-lg-auto">
                 <ul class="list-inline list-inline-dots mb-0">
-                  <li class="list-inline-item"><a href="./docs/index.html" class="link-secondary">Documentation</a></li>
-                  <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
-                  <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
-                  <li class="list-inline-item">
-                    <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
-                      <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                      Sponsor
-                    </a>
-                  </li>
+                  <li class="list-inline-item">Admin Template by <a href="https://github.com/tabler/tabler" target="_blank" rel="noopener">Tabler</a></li>
                 </ul>
               </div>
               <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                   <li class="list-inline-item">
-                    Copyright &copy; 2022
-                    <a href="." class="link-secondary">Tabler</a>.
-                    All rights reserved.
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="./changelog.html" class="link-secondary" rel="noopener">
-                      v1.0.0-beta9
-                    </a>
+                    Made By <a href="https://github/ilham06" >Ilham Muhamad</a>.
                   </li>
                 </ul>
               </div>
